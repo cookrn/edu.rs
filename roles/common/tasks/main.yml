@@ -1,0 +1,17 @@
+---
+- name: update the aptitude cache
+  sudo: true
+  apt: cache_valid_time=3600
+       update_cache=true
+
+- name: install standard packages
+  sudo: true
+  apt: pkg={{ item }}
+  with_items:
+    - build-essential
+    - curl
+    - git
+    - screen
+    - subversion
+    - traceroute
+    - vim
