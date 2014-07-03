@@ -1,17 +1,17 @@
 ---
-- name: download rust nightly binary
-  get_url: url="http://static.rust-lang.org/dist/rust-nightly-x86_64-unknown-linux-gnu.tar.gz"
-           dest="~/rust-nightly-x86_64-unknown-linux-gnu.tar.gz"
+- name: download rust binary
+  get_url: url="http://static.rust-lang.org/dist/{{ rust_download_name }}.tar.gz"
+           dest="~/{{ rust_download_name }}.tar.gz"
 
-- name: unpack the nightly binary
-  command: tar -xzvf rust-nightly-x86_64-unknown-linux-gnu.tar.gz
+- name: unpack the rust binary
+  command: tar -xzvf {{ rust_download_name }}.tar.gz
            chdir="~"
-           creates="~/rust-nightly-x86_64-unknown-linux-gnu"
+           creates="~/{{ rust_download_name }}"
 
 - name: install rust
   sudo: true
   command: sh install.sh
-           chdir="/home/{{ ansible_ssh_user }}/rust-nightly-x86_64-unknown-linux-gnu"
+           chdir="/home/{{ ansible_ssh_user }}/{{ rust_download_name }}"
            creates="/usr/local/bin/rustc"
 
 - name: download cargo source
